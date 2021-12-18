@@ -1,0 +1,16 @@
+{
+  "domain": "facebook.com",
+  "a": [
+    "157.240.3.35"
+  ],
+  "aaaa": [
+    "2a03:2880:f101:83:face:b00c:0:25de"
+  ],
+  "mx": [
+    "10 smtpin.vvv.facebook.com."
+  ],
+  "ns": [
+    "a.ns.facebook.com.",
+    "b.ns.facebook.com."
+  ]
+}

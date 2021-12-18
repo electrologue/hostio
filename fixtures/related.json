@@ -1,0 +1,30 @@
+{
+  "ip": [
+    {
+      "value": "172.217.14.238",
+      "count": 293
+    },
+    {
+      "value": "216.58.193.68",
+      "count": 71
+    }
+  ],
+  "redirects": [
+    {
+      "value": "google.com",
+      "count": 629989
+    }
+  ],
+  "backlinks": [
+    {
+      "value": "google.com",
+      "count": 17314912
+    }
+  ],
+  "asn": [
+    {
+      "value": "AS15169",
+      "count": 16219992
+    }
+  ]
+}
