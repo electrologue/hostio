@@ -8,7 +8,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"path"
 	"strconv"
 	"time"
 )
@@ -42,13 +41,10 @@ func NewClient(token string) *Client {
 // Web Metadata scraped from a domain homepage.
 // https://host.io/docs#apiwebdomain
 func (c Client) Web(ctx context.Context, domain string) (*WebResponse, error) {
-	endpoint, err := c.baseURL.Parse(path.Join(c.baseURL.Path, "web", domain))
-	if err != nil {
-		return nil, err
-	}
+	endpoint := c.baseURL.JoinPath("web", domain)
 
 	var apiResp WebResponse
-	err = c.do(ctx, endpoint, &apiResp)
+	err := c.do(ctx, endpoint, &apiResp)
 	if err != nil {
 		return nil, err
 	}
@@ -59,13 +55,10 @@ func (c Client) Web(ctx context.Context, domain string) (*WebResponse, error) {
 // DNS Get all the DNS records stored for a domain.
 // https://host.io/docs#apidnsdomain
 func (c Client) DNS(ctx context.Context, domain string) (*DNSResponse, error) {
-	endpoint, err := c.baseURL.Parse(path.Join(c.baseURL.Path, "dns", domain))
-	if err != nil {
-		return nil, err
-	}
+	endpoint := c.baseURL.JoinPath("dns", domain)
 
 	var apiResp DNSResponse
-	err = c.do(ctx, endpoint, &apiResp)
+	err := c.do(ctx, endpoint, &apiResp)
 	if err != nil {
 		return nil, err
 	}
@@ -76,13 +69,10 @@ func (c Client) DNS(ctx context.Context, domain string) (*DNSResponse, error) {
 // Related Get a count of the number of related domains for all supported lookups we offer.
 // https://host.io/docs#apirelateddomain
 func (c Client) Related(ctx context.Context, domain string) (*RelatedResponse, error) {
-	endpoint, err := c.baseURL.Parse(path.Join(c.baseURL.Path, "related", domain))
-	if err != nil {
-		return nil, err
-	}
+	endpoint := c.baseURL.JoinPath("related", domain)
 
 	var apiResp RelatedResponse
-	err = c.do(ctx, endpoint, &apiResp)
+	err := c.do(ctx, endpoint, &apiResp)
 	if err != nil {
 		return nil, err
 	}
@@ -93,13 +83,10 @@ func (c Client) Related(ctx context.Context, domain string) (*RelatedResponse, e
 // Full A single endpoint that includes the data from /api/web, /api/dns, /api/related and IPinfo.
 // https://host.io/docs#apifulldomain
 func (c Client) Full(ctx context.Context, domain string) (*FullResponse, error) {
-	endpoint, err := c.baseURL.Parse(path.Join(c.baseURL.Path, "full", domain))
-	if err != nil {
-		return nil, err
-	}
+	endpoint := c.baseURL.JoinPath("full", domain)
 
 	var apiResp FullResponse
-	err = c.do(ctx, endpoint, &apiResp)
+	err := c.do(ctx, endpoint, &apiResp)
 	if err != nil {
 		return nil, err
 	}
@@ -110,10 +97,7 @@ func (c Client) Full(ctx context.Context, domain string) (*FullResponse, error) 
 // Domains Get all domains associated with Field, and a count of the total.
 // https://host.io/docs#apidomainsfieldvalue
 func (c Client) Domains(ctx context.Context, field Field, value string, pager *Pager) (*DomainsResponse, error) {
-	endpoint, err := c.baseURL.Parse(path.Join(c.baseURL.Path, "domains", string(field), value))
-	if err != nil {
-		return nil, err
-	}
+	endpoint := c.baseURL.JoinPath("domains", string(field), value)
 
 	if pager != nil {
 		query := endpoint.Query()
@@ -123,7 +107,7 @@ func (c Client) Domains(ctx context.Context, field Field, value string, pager *P
 	}
 
 	var apiResp DomainsResponse
-	err = c.do(ctx, endpoint, &apiResp)
+	err := c.do(ctx, endpoint, &apiResp)
 	if err != nil {
 		return nil, err
 	}
